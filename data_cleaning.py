@@ -4,7 +4,7 @@ def clean_data():
   print("Before cleaning:"df.shape)
   df=df.dropna()
   df=df.drop_duplicates()
-  print("After Cleaning:"df.shape)
+  print("After Cleaning:",df.shape)
   df.to_csv("cleaned rent data.csv",index=False)
   print("clean file saved")
 
