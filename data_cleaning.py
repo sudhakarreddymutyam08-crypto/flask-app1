@@ -69,6 +69,24 @@ def store_data(df):
     print("Data stored in SQLite DB")
 
 
+# ------------------ PIPELINE ------------------
+def run_pipeline():
+    csv_url = fetch_dataset()
+
+    if csv_url:
+        df = load_data(csv_url)
+        df = clean_data(df)
+        df = transform_data(df)
+        store_data(df)
+    else:
+        print("No dataset found")
+
+
+# ------------------ RUN ------------------
+if __name__ == "__main__":
+    run_pipeline()
+
+
 
 
 
