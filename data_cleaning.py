@@ -34,4 +34,31 @@ def clean_data(df):
     df = df.drop_duplicates()
     print("After cleaning:", df.shape)
     return df
+# ------------------ TRANSFORMATION ------------------
+def transform_data(df):
+    # Try to find rent column automatically
+    rent_col = None
+    for col in df.columns:
+        if "rent" in col.lower():
+            rent_col = col
+            break
+
+    if rent_col:
+        print("Using rent column:", rent_col)
+
+        df[rent_col] = df[rent_col].astype(str)
+        df[rent_col] = df[rent_col].str.replace('[€,]', '', regex=True)
+
+        df[rent_col] = pd.to_numeric(df[rent_col], errors='coerce')
+        df = df.dropna(subset=[rent_col])
+
+        df['rent_category'] = df[rent_col].apply(
+            lambda x: 'low' if x < 1000 else 'medium' if x < 2000 else 'high'
+        )
+    else:
+        print("No rent column found!")
+
+    return df
+
+
 
