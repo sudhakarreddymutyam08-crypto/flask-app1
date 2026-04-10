@@ -1,14 +1,24 @@
+import requests
 import pandas as pd
-def clean_data():
-  df=pd.read_csv("rent_data.csv")
-  print("Before cleaning:",df.shape)
-  df=df.dropna()
-  df=df.drop_duplicates()
-  print("After Cleaning:",df.shape)
-  df.to_csv("cleaned rent data.csv",index=False)
-  print("clean file saved")
+import sqlite3
 
-if __name__=="__main__":
-  clean_data() 
-  
-  
+# ------------------ DATA ACQUISITION ------------------
+def fetch_dataset():
+    url = "https://data.gov.ie/api/3/action/package_search?q=residential%20tenancies"
+    response = requests.get(url)
+    data = response.json()
+
+    csv_url = None
+
+    for result in data['result']['results']:
+        if "tenanc" in result['title'].lower() or "rent" in result['title'].lower():
+            for resource in result['resources']:
+                if resource['format'].lower() == 'csv':
+                    csv_url = resource['url']
+                    break
+        if csv_url:
+            break
+
+    return csv_url
+
+
