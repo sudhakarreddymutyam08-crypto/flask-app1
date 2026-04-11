@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import sqlite3
 
-# ------------------ DATA ACQUISITION ------------------
+# --- DATA ACQUISITION ----
 def fetch_dataset():
     url = "https://data.gov.ie/api/3/action/package_search?q=residential%20tenancies"
     response = requests.get(url)
@@ -23,18 +23,18 @@ def fetch_dataset():
 def load_data(csv_url):
     df = pd.read_csv(csv_url)
     print("Loaded shape:", df.shape)
-    print("Columns:", df.columns)   # IMPORTANT (to debug column names)
+    print("Columns:", df.columns)  
     return df
 
 
-# ------------------ CLEANING ------------------
+# --- CLEANING ---
 def clean_data(df):
     print("Before cleaning:", df.shape)
     df = df.dropna()
     df = df.drop_duplicates()
     print("After cleaning:", df.shape)
     return df
-# -----------------------Transformation---------------
+# ---Transformation----
 def transform_data(df):
     if 'VALUE' in df.columns:
         print("Using VALUE as rent column")
@@ -51,7 +51,7 @@ def transform_data(df):
     return df
 
 
-# ------------------ DATABASE ------------------
+# ------ DATABASE -------
 def store_data(df):
     conn = sqlite3.connect("rent_data.db")
     df.to_sql("rent_table", conn, if_exists="append", index=False)
@@ -59,7 +59,7 @@ def store_data(df):
     print("Data stored in SQLite DB")
 
 
-# ------------------ PIPELINE ------------------
+#- PIPELINE --
 def run_pipeline():
     csv_url = fetch_dataset()
 
@@ -72,7 +72,7 @@ def run_pipeline():
         print("No dataset found")
 
 
-# ------------------ RUN ------------------
+# -- RUN --
 if __name__ == "__main__":
     run_pipeline()
 
