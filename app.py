@@ -13,19 +13,16 @@ def get_data():
 @app.route("/", methods=["GET"])
 def home():
     df = get_data()
+selected_location = request.args.get("location")
 
-    # filter by location
-    selected_location = request.args.get("location")
+# get full list first
+all_locations = df["Location"].dropna().unique()
 
-    if selected_location:
-        df = df[df["Location"] == selected_location]
+# apply filter ONLY if valid
+if selected_location and selected_location != "":
+    df = df[df["Location"] == selected_location]
 
-    data = df.to_dict(orient="records")
-
-    avg_rent = round(df['VALUE'].mean(), 2)
-    total = len(df)
-
-    locations = all_locations
+locations = all_locations
 
     # category count (for chart)
     category_counts = df["rent_category"].value_counts().to_dict()
