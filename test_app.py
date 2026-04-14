@@ -9,6 +9,6 @@ def test_flask_app():
     response = client.get("/")
 
     assert response.status_code == 200
-    print("Flask integration test passed ✅")
+    print("Flask integration test passed.")
 
 test_flask_app()
