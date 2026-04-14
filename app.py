@@ -14,28 +14,28 @@ def get_data():
 def home():
     df = get_data()
 
-    # get full list FIRST
+
     all_locations = df["Location"].dropna().unique()
 
     selected_location = request.args.get("location")
 
-    # apply filter ONLY if selected
+
     if selected_location and selected_location != "":
         df = df[df["Location"] == selected_location]
 
     locations = all_locations
 
-    # prepare data
+
     data = df.to_dict(orient="records")
     total = len(df)
 
-    # safe average
+
     if len(df) > 0:
         avg_rent = round(df['VALUE'].mean(), 2)
     else:
         avg_rent = 0
 
-    # category counts
+    
     category_counts = df["rent_category"].value_counts().to_dict()
 
     return render_template(
