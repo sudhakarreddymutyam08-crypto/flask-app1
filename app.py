@@ -21,8 +21,7 @@ all_locations = df["Location"].dropna().unique()
 # apply filter ONLY if valid
 if selected_location and selected_location != "":
     df = df[df["Location"] == selected_location]
-
-locations = all_locations
+    locations = all_locations
 
     # category count (for chart)
     category_counts = df["rent_category"].value_counts().to_dict()
