@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rent Dashboard</title>
+</head>
+
+<body>
+
+<h2>Rent Data Dashboard</h2>
+
+<p>Total Records: {{ total }}</p>
+<p>Average Rent: {{ avg_rent }}</p>
+
+<h3>Sample Data</h3>
+
+<table border="1">
+<tr>
+    <th>Location</th>
+    <th>Property</th>
+    <th>Bedrooms</th>
+    <th>Rent</th>
+    <th>Category</th>
+</tr>
+
+{% for row in data %}
+<tr>
+    <td>{{ row['Location'] }}</td>
+    <td>{{ row['Property Type'] }}</td>
+    <td>{{ row['Number of Bedrooms'] }}</td>
+    <td>{{ row['VALUE'] }}</td>
+    <td>{{ row['rent_category'] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
