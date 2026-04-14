@@ -25,7 +25,7 @@ def home():
     avg_rent = round(df['VALUE'].mean(), 2)
     total = len(df)
 
-    locations = df["Location"].dropna().unique()
+    locations = all_locations
 
     # category count (for chart)
     category_counts = df["rent_category"].value_counts().to_dict()
