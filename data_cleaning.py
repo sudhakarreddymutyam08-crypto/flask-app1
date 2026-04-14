@@ -54,7 +54,7 @@ def transform_data(df):
 # ------ DATABASE -------
 def store_data(df):
     conn = sqlite3.connect("rent_data.db")
-    df.to_sql("rent_table", conn, if_exists="append", index=False)
+    df.to_sql("rent_table", conn, if_exists="replace", index=False)
     conn.close()
     print("Data stored in SQLite DB")
 
