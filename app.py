@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 def get_data():
     conn = sqlite3.connect("rent_data.db")
-    df = pd.read_sql("SELECT * FROM rent_table LIMIT 500", conn)
+    df = pd.read_sql("SELECT * FROM rent_table LIMIT 5000", conn)
     conn.close()
     return df
 
