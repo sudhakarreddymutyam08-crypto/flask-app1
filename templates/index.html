@@ -11,6 +11,29 @@
 <p>Total Records: {{ total }}</p>
 <p>Average Rent: {{ avg_rent }}</p>
 
+<!-- FILTER -->
+<form method="GET">
+    <label>Select Location:</label>
+    <select name="location">
+        <option value="">All</option>
+        {% for loc in locations %}
+        <option value="{{ loc }}" {% if loc == selected_location %}selected{% endif %}>
+            {{ loc }}
+        </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<!-- CHART (simple text chart) -->
+<h3>Rent Category Count</h3>
+<ul>
+    {% for key, value in category_counts.items() %}
+        <li>{{ key }} : {{ value }}</li>
+    {% endfor %}
+</ul>
+
+<!-- TABLE -->
 <h3>Sample Data</h3>
 
 <table border="1">
