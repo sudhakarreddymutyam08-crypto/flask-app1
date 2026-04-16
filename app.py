@@ -31,12 +31,15 @@ def home():
 
 
     if len(df) > 0:
-        avg_rent = round(df['VALUE'].mean(), 2)
+       avg_rent = round(df['VALUE'].mean(), 2)
     else:
-        avg_rent = 0
+       avg_rent = 0
 
-    
-    category_counts = df["rent_category"].value_counts().to_dict()
+
+    if "rent_category" in df.columns:
+         category_counts = df["rent_category"].value_counts().to_dict()
+    else:
+         category_counts = {}
 
     return render_template(
         "index.html",
